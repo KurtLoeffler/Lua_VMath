@@ -270,8 +270,29 @@ function VMath.divide(x, y, mx, my)
 	return x/mx, y/my
 end
 
-
 -- 3d functions
+
+--- calculate a 3d unit vector along the "view" direction of yaw and pitch angles in radians.
+--- the to the resulting z axis corresponds to the input pitch angle.
+---@param yaw number yaw angle in radians
+---@param pitch number pitch angle in radians
+---@return number x, number y, number z
+function VMath.angleToVector3(yaw, pitch)
+	local zLen = math.cos(pitch)
+	local x = zLen*math.cos(yaw)
+	local y = zLen*math.sin(yaw)
+	local z = math.sin(pitch)
+	return x, y, z
+end
+
+--- calculate a 3d unit vector along the "view" direction of yaw and pitch angles in degrees.
+--- the to the resulting z axis corresponds to the input pitch angle.
+---@param yaw number yaw angle in degrees
+---@param pitch number pitch angle in degrees
+---@return number x, number y, number z
+function VMath.angleToVectorDeg3(yaw, pitch)
+	return VMath.angleToVector3(math.rad(yaw), math.rad(pitch))
+end
 
 ---@return number squaredLength
 function VMath.sqrLength3(x, y, z)
